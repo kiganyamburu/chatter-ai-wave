@@ -32,7 +32,7 @@ Chatter AI Wave is a modern, interactive AI chat assistant web application built
 ````
 2. **Install dependencies:**
    ```sh
-pnpm install # or npm install or yarn install
+npm install
 ````
 
 3. **Start the development server:**
