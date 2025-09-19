@@ -1,81 +1,125 @@
 # Chatter AI Wave
 
-Chatter AI Wave is a modern, interactive AI chat assistant web application built with React, Vite, TypeScript, and Tailwind CSS. It features a beautiful, responsive UI and simulates AI-powered conversations, making it ideal for demos, prototyping, or as a foundation for real AI chat integrations.
+A beautiful wave-themed chat interface built with Next.js, featuring both frontend and backend capabilities.
 
 ![Alt text](public/pic.png)
 
 ## Features
 
-- **Modern UI**: Built with [shadcn/ui](https://ui.shadcn.com/) components and Tailwind CSS for a sleek, accessible design.
-- **Simulated AI Chat**: Demo chat interface with animated typing indicators and simulated AI responses.
-- **Responsive Design**: Works seamlessly on desktop and mobile devices.
-- **Component-Driven**: Modular React components for easy customization and extension.
-- **Routing**: Client-side routing with React Router.
-- **State Management**: Uses React hooks and TanStack Query for state and async logic.
-- **Theming**: Supports dark mode and custom themes.
+- 🌊 Beautiful wave-themed UI with smooth animations
+- 🤖 AI chat interface with realistic typing indicators
+- 🔄 Responsive design that works on all devices
+- 🌐 Built-in API for handling chat messages
+- 🌙 Dark mode support
+- 🎨 Fully customizable UI components using shadcn/ui
+
+## Tech Stack
+
+- **Frontend**: Next.js 14, React 18, Tailwind CSS
+- **Backend**: Next.js API Routes
+- **UI Components**: shadcn/ui (based on Radix UI)
+- **Styling**: Tailwind CSS with custom wave theme
+- **Animation**: Custom keyframe animations
+- **Type Safety**: TypeScript
 
 ## Getting Started
 
-### Prerequisites
+## Getting Started
 
-- [Node.js](https://nodejs.org/) (v18 or newer recommended)
-- [pnpm](https://pnpm.io/) or [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+1. Clone the repository:
 
-### Installation
-
-1. **Clone the repository:**
-   ```sh
+   ```bash
    git clone https://github.com/kiganyamburu/chatter-ai-wave.git
    cd chatter-ai-wave
    ```
 
-````
-2. **Install dependencies:**
-   ```sh
-npm install
-````
+2. Install dependencies:
 
-3. **Start the development server:**
-   ```sh
-   pnpm dev # or npm run dev or yarn dev
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   # or
+   bun install
    ```
 
-```
-4. Open [http://localhost:8080](http://localhost:8080) in your browser.
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   # or
+   bun dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Project Structure
 
 ```
-
-├── public/ # Static assets
-├── src/
-│ ├── components/ # UI and chat components
-│ ├── hooks/ # Custom React hooks
-│ ├── lib/ # Utility functions
-│ ├── pages/ # Page components (routes)
-│ └── assets/ # Images and other assets
-├── index.html # Main HTML file
-├── tailwind.config.ts
-├── vite.config.ts
-└── package.json
-
+/
+├── app/                  # Next.js App Router
+│   ├── api/              # API routes
+│   │   └── chat/         # Chat API endpoint
+│   ├── globals.css       # Global styles
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Home page
+├── components/           # React components
+│   ├── ui/               # UI components
+│   └── ChatInterface.tsx # Main chat component
 ```
 
-## Tech Stack
-- **React 18**
-- **Vite** (blazing fast dev/build tool)
-- **TypeScript**
-- **Tailwind CSS**
-- **shadcn/ui** (Radix UI + custom components)
-- **TanStack Query** (react-query)
-- **React Router DOM**
+## Extending the Chat API
 
-## Customization
-- Update the chat logic in `src/components/ChatInterface.tsx` to connect to a real AI backend (e.g., OpenAI, LangChain, etc.).
-- Modify theme and styles in `tailwind.config.ts` and `src/App.css`.
-- Add new pages or components as needed.
+The chat API is implemented as a Next.js API route at `/app/api/chat/route.ts`. You can extend it to connect to an actual AI service:
+
+```typescript
+// Example of connecting to an external AI service
+import { OpenAI } from "openai";
+
+// Initialize the OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    const { message } = body;
+
+    // Call OpenAI API
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: message }],
+      model: "gpt-3.5-turbo",
+    });
+
+    return NextResponse.json({
+      response:
+        completion.choices[0]?.message.content || "No response generated",
+    });
+  } catch (error) {
+    console.error("Chat API error:", error);
+    return NextResponse.json(
+      { error: "Failed to process message" },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## Deployment
+
+You can deploy this Next.js application to platforms like Vercel, Netlify, or any other hosting service that supports Next.js.
+
+For the best experience, deploy to [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js).
 
 ## Scripts
+
 - `pnpm dev` — Start development server
 - `pnpm build` — Build for production
 - `pnpm preview` — Preview production build
@@ -84,4 +128,7 @@ npm install
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+```
+
 ```
