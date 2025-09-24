@@ -128,9 +128,7 @@ For the best experience, deploy to [Vercel](https://vercel.com/new?utm_medium=de
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
-This project is open source and available under the [MIT License](LICENSE).
-This project is open source and available under the [MIT License](LICENSE).
-This project is open source and available under the [MIT License](LICENSE).
+
 
 ```
 
